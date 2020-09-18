@@ -7,10 +7,35 @@
 
 <!-- badges: end -->
 
-The goal of MSVI is to provide researchers and analysts with health and
-socioeconomic measures data originating from various public sources.
+The goal of the MSVI package is to provide researchers and analysts with
+health and socioeconomic data at the metropolitan or county-level.
 
-## Installation
+The MSVI package contains:
+
+  - `ahrf`: data provided by the Area Health Resources Files (AHRF)
+    which include the counts of health care professions at the
+    county-level from over 50 data sources. (Source:
+    <https://data.hrsa.gov/topics/health-workforce/ahrf>)
+  - `cms_mmd`: data from the Centers for Medicare & Medicaid Services on
+    health outcomes and utilization. (Source:
+    <https://data.cms.gov/mapping-medicare-disparities>)
+  - `county_health_rankings`: data provided by The County Health
+    Rankings & Roadmaps program on health outcomes and health factors.
+    (Source:
+    <https://www.countyhealthrankings.org/explore-health-rankings/measures-data-sources/2020-measures>)
+  - `definitive_hc`: data on typical bed capacity and average yearly bed
+    utilization of hospitals across the United States provided by
+    Definitive Healthcare. (Source:
+    <https://coronavirus-resources.esri.com/datasets/>)
+  - `svi_ranking`: the Centers for Disease Control and Prevention
+    (CDC)’s Social Vulnerability Index (SVI) which ranks counties on
+    15 social factors, including unemployment, minority status, and
+    disability, and further groups them into four related themes. SVI
+    was calculated for metropolitan statistical area’s and added to
+    `svi_ranking.rds`. (Source for county-level data:
+    <https://www.atsdr.cdc.gov/placeandhealth/svi/index.html>)
+
+### Installation
 
 You can install the development version from
 [GitHub](https://github.com/) with:
@@ -19,3 +44,40 @@ You can install the development version from
 # install.packages("devtools")
 devtools::install_github("asmae-toumi/MSVI")
 ```
+
+### Social Vulnerability Index
+
+CDC developed the SVI to “help public health officials and emergency
+response planners identify and map the communities that will most likely
+need support before, during, and after a hazardous event.”. It ranks
+counties vulnerability by the following themes: socioeconomic status,
+household Composition & disability, minority status & language, housing
+type & transportation, and an overall ranking.
+
+``` r
+library(tidyverse)
+library(janitor)
+library(r2d3maps)
+library(albersusa)
+library(sf)
+library(tigris)
+
+svi_ranking <- 
+  readRDS("data/svi_ranking.rds") %>% 
+  clean_names() %>% 
+  filter(across(where(is.numeric), ~. >= 0)) 
+
+cty_sf <- counties_sf("longlat")
+
+cty_sf <- cty_sf %>% 
+  geo_join(svi_ranking, by_sp = "fips", by_df = "fips")
+
+cty_sf %>% 
+ggplot(aes(fill = overall_ranking)) +
+  scale_fill_viridis_c(option = "plasma") +
+  geom_sf(color = NA) + 
+  coord_sf(datum = NA) +
+  theme_minimal()
+```
+
+<img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" />
