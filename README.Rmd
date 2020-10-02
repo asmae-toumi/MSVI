@@ -21,6 +21,8 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
+Website: https://asmae-toumi.github.io/MSVI/
+
 
 #------------------------- UNDER CONSTRUCTION ------------------------#
 

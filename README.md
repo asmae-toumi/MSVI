@@ -7,6 +7,8 @@
 
 <!-- badges: end -->
 
+Website: <https://asmae-toumi.github.io/MSVI/>
+
 \#————————- UNDER CONSTRUCTION ————————\#
 
 The goal of the MSVI package is to provide researchers and analysts with
