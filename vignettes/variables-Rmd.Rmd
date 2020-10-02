@@ -9,6 +9,8 @@ knitr::opts_chunk$set(
 )
 ```
 
+#-------------------------------------UNDER CONSTRUCTION------------------------------------------------#
+
 ## CMS
 
 The CMS Office of Minority Health has designed the Mapping Medicare Disparities Tool (MMD), to identify areas of disparities between subgroups of Medicare beneficiaries (e.g., racial and ethnic groups) in health outcomes, utilization, and spending. From the CMS MMD, we obtained the following attributes at the county level: 
@@ -46,4 +48,5 @@ Last updated Sept. 14th, 2020
 ##  County Health Rankings
 
 The County Health Rankings & Roadmaps program is a collaboration between the Robert Wood Johnson Foundation and the University of Wisconsin Population Health Institute. At the county level, we’ve obtained the following attributes from their county health rankings model and data aggregated from governmental resources: 
+
 
