@@ -7,8 +7,11 @@
 
 <!-- badges: end -->
 
+\#————————- UNDER CONSTRUCTION ————————\#
+
 The goal of the MSVI package is to provide researchers and analysts with
-health and socioeconomic data at the metropolitan or county-level.
+health and socioeconomic data at the state, metropolitan or
+county-level.
 
 The MSVI package contains:
 
@@ -16,7 +19,7 @@ The MSVI package contains:
     which include the counts of health care professions at the
     county-level from over 50 data sources. (Source:
     <https://data.hrsa.gov/topics/health-workforce/ahrf>)
-  - `cms_mmd`: data from the Centers for Medicare & Medicaid Services on
+  - `cms`: data from the Centers for Medicare & Medicaid Services on
     health outcomes and utilization. (Source:
     <https://data.cms.gov/mapping-medicare-disparities>)
   - `county_health_rankings`: data provided by The County Health
@@ -45,6 +48,45 @@ You can install the development version from
 devtools::install_github("asmae-toumi/MSVI")
 ```
 
+### AHRF
+
+View raw clinician rate and clinician rate per 100,000 people at the
+state and county level by type of clinician.
+
+``` r
+library(MSVI)
+library(tidyverse)
+library(janitor)
+
+ahrf %>% 
+  clean_names() %>% 
+  filter(year_represented_by_variable == "2016") %>% 
+  group_by(state, variable) %>% 
+  count() %>% View()
+```
+
+### CMS
+
+The CMS data contains all-cause hospitalizations, all-cause
+readmissions, overall and composite PQI (Prevention Quality Index) and
+all emergency visits by county and state.
+
+``` r
+cms %>% 
+  filter(condition == "All Emergency Department Visits") %>% 
+  group_by(county, ) %>% 
+  summarize(total_ED = sum(analysis_value)) %>% 
+  top_n(5)
+#> # A tibble: 5 x 2
+#>   county            total_ED
+#>   <chr>                <dbl>
+#> 1 Franklin County      17283
+#> 2 Jackson County       16234
+#> 3 Jefferson County     18103
+#> 4 Lincoln County       15529
+#> 5 Washington County    20706
+```
+
 ### Social Vulnerability Index
 
 CDC developed the SVI to “help public health officials and emergency
@@ -62,8 +104,7 @@ library(albersusa)
 library(sf)
 library(tigris)
 
-svi_ranking <- 
-  readRDS("data/svi_ranking.rds") %>% 
+svi_ranking <- svi_ranking %>% 
   clean_names() %>% 
   filter(across(where(is.numeric), ~. >= 0)) 
 
@@ -80,4 +121,4 @@ ggplot(aes(fill = overall_ranking)) +
   theme_minimal()
 ```
 
-<img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />

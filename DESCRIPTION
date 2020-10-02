@@ -1,13 +1,12 @@
 Package: MSVI
-Title: What the Package Does (One Line, Title Case)
+Title: Health and socioeconomic data from select public sources
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Asmae",
+           family = "Toumi",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+           email = "atoumi@mgh.harvard.edu")
+Description: The goal of the MSVI package is to provide researchers and analysts with health and socioeconomic data at the metropolitan or county-level from various public sources.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
