@@ -9,7 +9,7 @@
 
 Website: <https://asmae-toumi.github.io/MSVI/>
 
-\#————————- UNDER CONSTRUCTION ————————\#
+\#————————- IN DEVELOPMENT ————————\#
 
 The goal of the MSVI package is to provide researchers and analysts with
 health and socioeconomic data at the state, metropolitan or
@@ -99,28 +99,26 @@ household Composition & disability, minority status & language, housing
 type & transportation, and an overall ranking.
 
 ``` r
-library(tidyverse)
-library(janitor)
-library(r2d3maps)
-library(albersusa)
-library(sf)
-library(tigris)
+#library(tidyverse)
+#library(janitor)
+#library(r2d3maps)
+#library(albersusa)
+#library(sf)
+#library(tigris)
 
-svi_ranking <- svi_ranking %>% 
-  clean_names() %>% 
-  filter(across(where(is.numeric), ~. >= 0)) 
+#svi_ranking <- svi_ranking %>% 
+ # clean_names() %>% 
+#  filter(across(where(is.numeric), ~. >= 0)) 
 
-cty_sf <- counties_sf("longlat")
+#cty_sf <- counties_sf("longlat")
 
-cty_sf <- cty_sf %>% 
-  geo_join(svi_ranking, by_sp = "fips", by_df = "fips")
+#cty_sf <- cty_sf %>% 
+  #geo_join(svi_ranking, by_sp = "fips", by_df = "fips")
 
-cty_sf %>% 
-ggplot(aes(fill = overall_ranking)) +
-  scale_fill_viridis_c(option = "plasma") +
-  geom_sf(color = NA) + 
-  coord_sf(datum = NA) +
-  theme_minimal()
+#cty_sf %>% 
+#ggplot(aes(fill = overall_ranking)) +
+ # scale_fill_viridis_c(option = "plasma") +
+ # geom_sf(color = NA) + 
+ # coord_sf(datum = NA) +
+ # theme_minimal()
 ```
-
-<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
