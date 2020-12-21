@@ -23,9 +23,6 @@ knitr::opts_chunk$set(
 
 Website: https://asmae-toumi.github.io/MSVI/
 
-
-#------------------------- IN DEVELOPMENT ------------------------#
-
 The goal of the MSVI package is to provide researchers and analysts with health and socioeconomic data at the state, metropolitan or county-level.
 
 The MSVI package contains:
@@ -52,13 +49,11 @@ View raw clinician rate and clinician rate per 100,000 people at the state and c
 ```{r}
 library(MSVI)
 library(tidyverse)
-library(janitor)
 
 ahrf %>% 
-  clean_names() %>% 
   filter(year_represented_by_variable == "2016") %>% 
   group_by(state, variable) %>% 
-  count() %>% View()
+  count() 
 ```
 
 ### CMS
@@ -69,7 +64,7 @@ The CMS data contains all-cause hospitalizations, all-cause readmissions, overal
 cms %>% 
   filter(condition == "All Emergency Department Visits") %>% 
   group_by(county, ) %>% 
-  summarize(total_ED = sum(analysis_value)) %>% 
+  summarize(total_ed = sum(analysis_value)) %>% 
   top_n(5)
 ```
 
@@ -78,30 +73,10 @@ cms %>%
 
 CDC developed the SVI to "help public health officials and emergency response planners identify and map the communities that will most likely need support before, during, and after a hazardous event.". It ranks counties vulnerability by the following themes: socioeconomic status, household Composition & disability, minority status & language, housing type & transportation, and an overall ranking.
 
-```{r}
-#library(tidyverse)
-#library(janitor)
-#library(r2d3maps)
-#library(albersusa)
-#library(sf)
-#library(tigris)
+### Definitive healthcare 
 
-#svi_ranking <- svi_ranking %>% 
- # clean_names() %>% 
-#  filter(across(where(is.numeric), ~. >= 0)) 
+Data on typical bed capacity and average yearly bed utilization of hospitals across the United States provided by Definitive Healthcare. (Source: https://coronavirus-resources.esri.com/datasets/)
 
-#cty_sf <- counties_sf("longlat")
+### County health rankings 
 
-#cty_sf <- cty_sf %>% 
-  #geo_join(svi_ranking, by_sp = "fips", by_df = "fips")
-
-#cty_sf %>% 
-#ggplot(aes(fill = overall_ranking)) +
- # scale_fill_viridis_c(option = "plasma") +
- # geom_sf(color = NA) + 
- # coord_sf(datum = NA) +
- # theme_minimal()
-```
-
-
-
+Data provided by The County Health Rankings & Roadmaps program on health outcomes and health factors. (Source: https://www.countyhealthrankings.org/explore-health-rankings/measures-data-sources/2020-measures)

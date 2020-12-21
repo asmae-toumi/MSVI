@@ -9,8 +9,6 @@
 
 Website: <https://asmae-toumi.github.io/MSVI/>
 
-\#————————- IN DEVELOPMENT ————————\#
-
 The goal of the MSVI package is to provide researchers and analysts with
 health and socioeconomic data at the state, metropolitan or
 county-level.
@@ -58,13 +56,26 @@ state and county level by type of clinician.
 ``` r
 library(MSVI)
 library(tidyverse)
-library(janitor)
 
 ahrf %>% 
-  clean_names() %>% 
   filter(year_represented_by_variable == "2016") %>% 
   group_by(state, variable) %>% 
-  count() %>% View()
+  count() 
+#> # A tibble: 972 x 3
+#> # Groups:   state, variable [972]
+#>    state   variable                  n
+#>    <chr>   <chr>                 <int>
+#>  1 Alabama Dentist                  67
+#>  2 Alabama DO, All                  67
+#>  3 Alabama Family Medicine, DO      67
+#>  4 Alabama Family Medicine, MD      67
+#>  5 Alabama General Practice, DO     67
+#>  6 Alabama General Practice, MD     67
+#>  7 Alabama Internal Medicine, DO    67
+#>  8 Alabama Internal Medicine, MD    67
+#>  9 Alabama MD, All                  67
+#> 10 Alabama Nurse Practitioner       67
+#> # … with 962 more rows
 ```
 
 ### CMS
@@ -77,10 +88,10 @@ all emergency visits by county and state.
 cms %>% 
   filter(condition == "All Emergency Department Visits") %>% 
   group_by(county, ) %>% 
-  summarize(total_ED = sum(analysis_value)) %>% 
+  summarize(total_ed = sum(analysis_value)) %>% 
   top_n(5)
 #> # A tibble: 5 x 2
-#>   county            total_ED
+#>   county            total_ed
 #>   <chr>                <dbl>
 #> 1 Franklin County      17283
 #> 2 Jackson County       16234
@@ -98,27 +109,14 @@ counties vulnerability by the following themes: socioeconomic status,
 household Composition & disability, minority status & language, housing
 type & transportation, and an overall ranking.
 
-``` r
-#library(tidyverse)
-#library(janitor)
-#library(r2d3maps)
-#library(albersusa)
-#library(sf)
-#library(tigris)
+### Definitive healthcare
 
-#svi_ranking <- svi_ranking %>% 
- # clean_names() %>% 
-#  filter(across(where(is.numeric), ~. >= 0)) 
+Data on typical bed capacity and average yearly bed utilization of
+hospitals across the United States provided by Definitive Healthcare.
+(Source: <https://coronavirus-resources.esri.com/datasets/>)
 
-#cty_sf <- counties_sf("longlat")
+### County health rankings
 
-#cty_sf <- cty_sf %>% 
-  #geo_join(svi_ranking, by_sp = "fips", by_df = "fips")
-
-#cty_sf %>% 
-#ggplot(aes(fill = overall_ranking)) +
- # scale_fill_viridis_c(option = "plasma") +
- # geom_sf(color = NA) + 
- # coord_sf(datum = NA) +
- # theme_minimal()
-```
+Data provided by The County Health Rankings & Roadmaps program on health
+outcomes and health factors. (Source:
+<https://www.countyhealthrankings.org/explore-health-rankings/measures-data-sources/2020-measures>)
