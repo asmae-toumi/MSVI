@@ -71,12 +71,34 @@ cms %>%
 
 ### Social Vulnerability Index 
 
-CDC developed the SVI to "help public health officials and emergency response planners identify and map the communities that will most likely need support before, during, and after a hazardous event.". It ranks counties vulnerability by the following themes: socioeconomic status, household Composition & disability, minority status & language, housing type & transportation, and an overall ranking.
+CDC developed the SVI to "help public health officials and emergency response planners identify and map the communities that will most likely need support before, during, and after a hazardous event.". It ranks counties vulnerability by the following themes: socioeconomic status, household Composition & disability, minority status & language, housing type & transportation, and an overall ranking. (Source for county-level data: https://www.atsdr.cdc.gov/placeandhealth/svi/index.html)
+
+```{r}
+svi_ranking %>%
+  slice_max(overall_ranking, n = 20) 
+```
+
 
 ### Definitive healthcare 
 
 Data on typical bed capacity and average yearly bed utilization of hospitals across the United States provided by Definitive Healthcare. (Source: https://coronavirus-resources.esri.com/datasets/)
 
+```{r}
+library(skimr)
+
+definitive_hc %>% 
+  group_by(state_name) %>% 
+  summarize(mean_icu_beds = mean(num_icu_beds))
+```
+
 ### County health rankings 
 
 Data provided by The County Health Rankings & Roadmaps program on health outcomes and health factors. (Source: https://www.countyhealthrankings.org/explore-health-rankings/measures-data-sources/2020-measures)
+
+```{r}
+county_health_rankings %>%
+  select(state_abbreviation, housing_cost_burden = severe_housing_cost_burden_raw_value) %>% 
+  group_by(state_abbreviation) %>% 
+  slice_min(housing_cost_burden)
+```
+
