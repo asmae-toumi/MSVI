@@ -83,7 +83,7 @@
 <a href="#msvi" class="anchor"></a>MSVI</h1></div>
 <!-- badges: start -->
 <!-- badges: end -->
-<p>#————————- UNDER CONSTRUCTION ————————#</p>
+<p>Website: <a href="https://asmae-toumi.github.io/MSVI/" class="uri">https://asmae-toumi.github.io/MSVI/</a></p>
 <p>The goal of the MSVI package is to provide researchers and analysts with health and socioeconomic data at the state, metropolitan or county-level.</p>
 <p>The MSVI package contains:</p>
 <ul>
@@ -102,76 +102,138 @@
 <h3 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h3>
 <p>You can install the development version from <a href="https://github.com/">GitHub</a> with:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="co"># install.packages("devtools")</span>
-<span class="kw">devtools</span>::<span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"asmae-toumi/MSVI"</span>)
-</pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"asmae-toumi/MSVI"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="ahrf" class="section level3">
 <h3 class="hasAnchor">
 <a href="#ahrf" class="anchor"></a>AHRF</h3>
 <p>View raw clinician rate and clinician rate per 100,000 people at the state and county level by type of clinician.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/asmae-toumi/MSVI">MSVI</a></span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="http://tidyverse.tidyverse.org">tidyverse</a></span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/sfirke/janitor">janitor</a></span>)
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/asmae-toumi/MSVI">MSVI</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
 
-<span class="kw">ahrf</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://rdrr.io/pkg/janitor/man/clean_names.html">clean_names</a></span>() <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(<span class="kw">year_represented_by_variable</span> <span class="op">==</span> <span class="st">"2016"</span>) <span class="op">%&gt;%</span> 
-  <span class="fu">group_by</span>(<span class="kw">state</span>, <span class="kw">variable</span>) <span class="op">%&gt;%</span> 
-  <span class="fu">count</span>() <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/utils/View.html">View</a></span>()
-</pre></div>
+<span class="va">ahrf</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">year_represented_by_variable</span> <span class="op">==</span> <span class="st">"2016"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">group_by</span><span class="op">(</span><span class="va">state</span>, <span class="va">variable</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">count</span><span class="op">(</span><span class="op">)</span> 
+<span class="co">#&gt; # A tibble: 972 x 3</span>
+<span class="co">#&gt; # Groups:   state, variable [972]</span>
+<span class="co">#&gt;    state   variable                  n</span>
+<span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;                 &lt;int&gt;</span>
+<span class="co">#&gt;  1 Alabama Dentist                  67</span>
+<span class="co">#&gt;  2 Alabama DO, All                  67</span>
+<span class="co">#&gt;  3 Alabama Family Medicine, DO      67</span>
+<span class="co">#&gt;  4 Alabama Family Medicine, MD      67</span>
+<span class="co">#&gt;  5 Alabama General Practice, DO     67</span>
+<span class="co">#&gt;  6 Alabama General Practice, MD     67</span>
+<span class="co">#&gt;  7 Alabama Internal Medicine, DO    67</span>
+<span class="co">#&gt;  8 Alabama Internal Medicine, MD    67</span>
+<span class="co">#&gt;  9 Alabama MD, All                  67</span>
+<span class="co">#&gt; 10 Alabama Nurse Practitioner       67</span>
+<span class="co">#&gt; # … with 962 more rows</span></code></pre></div>
 </div>
 <div id="cms" class="section level3">
 <h3 class="hasAnchor">
 <a href="#cms" class="anchor"></a>CMS</h3>
 <p>The CMS data contains all-cause hospitalizations, all-cause readmissions, overall and composite PQI (Prevention Quality Index) and all emergency visits by county and state.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="kw">cms</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(<span class="kw">condition</span> <span class="op">==</span> <span class="st">"All Emergency Department Visits"</span>) <span class="op">%&gt;%</span> 
-  <span class="fu">group_by</span>(<span class="kw">county</span>, ) <span class="op">%&gt;%</span> 
-  <span class="fu">summarize</span>(total_ED = <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="kw">analysis_value</span>)) <span class="op">%&gt;%</span> 
-  <span class="fu">top_n</span>(<span class="fl">5</span>)
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">cms</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">condition</span> <span class="op">==</span> <span class="st">"All Emergency Department Visits"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">group_by</span><span class="op">(</span><span class="va">county</span>, <span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">summarize</span><span class="op">(</span>total_ed <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">analysis_value</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">top_n</span><span class="op">(</span><span class="fl">5</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 5 x 2</span>
-<span class="co">#&gt;   county            total_ED</span>
+<span class="co">#&gt;   county            total_ed</span>
 <span class="co">#&gt;   &lt;chr&gt;                &lt;dbl&gt;</span>
 <span class="co">#&gt; 1 Franklin County      17283</span>
 <span class="co">#&gt; 2 Jackson County       16234</span>
 <span class="co">#&gt; 3 Jefferson County     18103</span>
 <span class="co">#&gt; 4 Lincoln County       15529</span>
-<span class="co">#&gt; 5 Washington County    20706</span>
-</pre></div>
+<span class="co">#&gt; 5 Washington County    20706</span></code></pre></div>
 </div>
 <div id="social-vulnerability-index" class="section level3">
 <h3 class="hasAnchor">
 <a href="#social-vulnerability-index" class="anchor"></a>Social Vulnerability Index</h3>
-<p>CDC developed the SVI to “help public health officials and emergency response planners identify and map the communities that will most likely need support before, during, and after a hazardous event.”. It ranks counties vulnerability by the following themes: socioeconomic status, household Composition &amp; disability, minority status &amp; language, housing type &amp; transportation, and an overall ranking.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="http://tidyverse.tidyverse.org">tidyverse</a></span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/sfirke/janitor">janitor</a></span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/dreamRs/r2d3maps">r2d3maps</a></span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/hrbrmstr/albersusa">albersusa</a></span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://r-spatial.github.io/sf">sf</a></span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/walkerke/tigris">tigris</a></span>)
+<p>CDC developed the SVI to “help public health officials and emergency response planners identify and map the communities that will most likely need support before, during, and after a hazardous event.”. It ranks counties vulnerability by the following themes: socioeconomic status, household Composition &amp; disability, minority status &amp; language, housing type &amp; transportation, and an overall ranking. (Source for county-level data: <a href="https://www.atsdr.cdc.gov/placeandhealth/svi/index.html" class="uri">https://www.atsdr.cdc.gov/placeandhealth/svi/index.html</a>)</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">svi_ranking</span> <span class="op">%&gt;%</span>
+  <span class="fu">slice_max</span><span class="op">(</span><span class="va">overall_ranking</span>, n <span class="op">=</span> <span class="fl">20</span><span class="op">)</span> 
+<span class="co">#&gt; # A tibble: 20 x 7</span>
+<span class="co">#&gt;     fips name  socioeconomic household_disab… minority_langua… housing_transpo…</span>
+<span class="co">#&gt;    &lt;dbl&gt; &lt;chr&gt;         &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 48047 broo…         0.999            0.966            0.994            0.991</span>
+<span class="co">#&gt;  2 46060 &lt;NA&gt;          0.990            0.725            0.866            0.990</span>
+<span class="co">#&gt;  3 48127 dimm…         0.995            0.994            0.990            0.932</span>
+<span class="co">#&gt;  4 48131 duva…         0.982            0.999            0.981            0.898</span>
+<span class="co">#&gt;  5 35029 luna…         0.995            0.950            0.990            0.977</span>
+<span class="co">#&gt;  6 48507 zava…         0.985            0.986            0.992            0.933</span>
+<span class="co">#&gt;  7 35006 cibo…         0.957            0.968            0.909            0.996</span>
+<span class="co">#&gt;  8 48377 pres…         0.994            0.997            0.998            0.703</span>
+<span class="co">#&gt;  9  6025 impe…         0.985            0.776            0.998            0.987</span>
+<span class="co">#&gt; 10 22039 evan…         0.983            0.978            0.826            0.969</span>
+<span class="co">#&gt; 11 33100 &lt;NA&gt;          0.979            0.314            0.971            0.971</span>
+<span class="co">#&gt; 12 48109 culb…         0.955            0.991            0.986            0.884</span>
+<span class="co">#&gt; 13  5017 chic…         0.936            0.991            0.827            0.986</span>
+<span class="co">#&gt; 14 41045 malh…         0.915            0.887            0.903            0.999</span>
+<span class="co">#&gt; 15 22117 wash…         0.974            0.984            0.811            0.964</span>
+<span class="co">#&gt; 16  1005 barb…         0.978            0.915            0.856            0.989</span>
+<span class="co">#&gt; 17  4017 nava…         0.960            0.957            0.934            0.962</span>
+<span class="co">#&gt; 18 28163 yazo…         0.981            0.942            0.935            0.940</span>
+<span class="co">#&gt; 19  1105 perr…         0.988            0.956            0.624            0.994</span>
+<span class="co">#&gt; 20 35380 &lt;NA&gt;          0.997            0.552            0.822            0.932</span>
+<span class="co">#&gt; # … with 1 more variable: overall_ranking &lt;dbl&gt;</span></code></pre></div>
+</div>
+<div id="definitive-healthcare" class="section level3">
+<h3 class="hasAnchor">
+<a href="#definitive-healthcare" class="anchor"></a>Definitive healthcare</h3>
+<p>Data on typical bed capacity and average yearly bed utilization of hospitals across the United States provided by Definitive Healthcare. (Source: <a href="https://coronavirus-resources.esri.com/datasets/" class="uri">https://coronavirus-resources.esri.com/datasets/</a>)</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/skimr">skimr</a></span><span class="op">)</span>
 
-<span class="kw">svi_ranking</span> <span class="op">&lt;-</span> <span class="kw">svi_ranking</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://rdrr.io/pkg/janitor/man/clean_names.html">clean_names</a></span>() <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(<span class="fu">across</span>(<span class="fu">where</span>(<span class="kw">is.numeric</span>), <span class="op">~</span><span class="kw">.</span> <span class="op">&gt;=</span> <span class="fl">0</span>)) 
-
-<span class="kw">cty_sf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/albersusa/man/counties_sf.html">counties_sf</a></span>(<span class="st">"longlat"</span>)
-
-<span class="kw">cty_sf</span> <span class="op">&lt;-</span> <span class="kw">cty_sf</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://rdrr.io/pkg/tigris/man/geo_join.html">geo_join</a></span>(<span class="kw">svi_ranking</span>, by_sp = <span class="st">"fips"</span>, by_df = <span class="st">"fips"</span>)
-
-<span class="kw">cty_sf</span> <span class="op">%&gt;%</span> 
-<span class="fu">ggplot</span>(<span class="fu">aes</span>(fill = <span class="kw">overall_ranking</span>)) <span class="op">+</span>
-  <span class="fu">scale_fill_viridis_c</span>(option = <span class="st">"plasma"</span>) <span class="op">+</span>
-  <span class="fu">geom_sf</span>(color = <span class="fl">NA</span>) <span class="op">+</span> 
-  <span class="fu">coord_sf</span>(datum = <span class="fl">NA</span>) <span class="op">+</span>
-  <span class="fu">theme_minimal</span>()
-</pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-4-1.png" width="100%"></p>
+<span class="va">definitive_hc</span> <span class="op">%&gt;%</span> 
+  <span class="fu">group_by</span><span class="op">(</span><span class="va">state_name</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">summarize</span><span class="op">(</span>mean_icu_beds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">num_icu_beds</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 53 x 2</span>
+<span class="co">#&gt;    state_name           mean_icu_beds</span>
+<span class="co">#&gt;    &lt;chr&gt;                        &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 Alabama                      13.6 </span>
+<span class="co">#&gt;  2 Alaska                        6.89</span>
+<span class="co">#&gt;  3 Arizona                      14.8 </span>
+<span class="co">#&gt;  4 Arkansas                      8.54</span>
+<span class="co">#&gt;  5 California                   18.5 </span>
+<span class="co">#&gt;  6 Colorado                     12.0 </span>
+<span class="co">#&gt;  7 Connecticut                  20.6 </span>
+<span class="co">#&gt;  8 Delaware                     16.5 </span>
+<span class="co">#&gt;  9 District of Columbia         29.1 </span>
+<span class="co">#&gt; 10 Florida                      22.7 </span>
+<span class="co">#&gt; # … with 43 more rows</span></code></pre></div>
+</div>
+<div id="county-health-rankings" class="section level3">
+<h3 class="hasAnchor">
+<a href="#county-health-rankings" class="anchor"></a>County health rankings</h3>
+<p>Data provided by The County Health Rankings &amp; Roadmaps program on health outcomes and health factors. (Source: <a href="https://www.countyhealthrankings.org/explore-health-rankings/measures-data-sources/2020-measures" class="uri">https://www.countyhealthrankings.org/explore-health-rankings/measures-data-sources/2020-measures</a>)</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">county_health_rankings</span> <span class="op">%&gt;%</span>
+  <span class="fu">select</span><span class="op">(</span><span class="va">state_abbreviation</span>, housing_cost_burden <span class="op">=</span> <span class="va">severe_housing_cost_burden_raw_value</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">group_by</span><span class="op">(</span><span class="va">state_abbreviation</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">slice_min</span><span class="op">(</span><span class="va">housing_cost_burden</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 51 x 2</span>
+<span class="co">#&gt; # Groups:   state_abbreviation [51]</span>
+<span class="co">#&gt;    state_abbreviation housing_cost_burden</span>
+<span class="co">#&gt;    &lt;chr&gt;                            &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 AK                              0.0325</span>
+<span class="co">#&gt;  2 AL                              0.0705</span>
+<span class="co">#&gt;  3 AR                              0.0622</span>
+<span class="co">#&gt;  4 AZ                              0.0359</span>
+<span class="co">#&gt;  5 CA                              0.102 </span>
+<span class="co">#&gt;  6 CO                              0.0475</span>
+<span class="co">#&gt;  7 CT                              0.125 </span>
+<span class="co">#&gt;  8 DC                              0.184 </span>
+<span class="co">#&gt;  9 DE                              0.128 </span>
+<span class="co">#&gt; 10 FL                              0.0775</span>
+<span class="co">#&gt; # … with 41 more rows</span></code></pre></div>
 </div>
 </div>
   </div>
